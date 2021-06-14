@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +38,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findById(int id) {
-        return null;
+        Optional<User> userOptional=userRepository.findById(id);
+        /*UserDTO userDTO=null;
+        if(userOptional.isPresent()){
+            userDTO=new UserDTO(userOptional.get());
+        }
+        return userDTO;*/
+        User user=userOptional.orElseThrow(()->new RuntimeException("User with given id not found"));
+        UserDTO userDTO=new UserDTO(user);
+        return userDTO;
+
     }
 
     @Override
