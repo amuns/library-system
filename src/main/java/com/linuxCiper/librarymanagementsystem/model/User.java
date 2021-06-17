@@ -1,22 +1,27 @@
 package com.linuxCiper.librarymanagementsystem.model;
 
 import com.linuxCiper.librarymanagementsystem.dto.UserDTO;
+import com.linuxCiper.librarymanagementsystem.utils.Roles;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="user")
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(unique = true)
     private String username;
     private String password;
+    @Column(unique = true)
     private String email;
     private String firstname;
     private String lastname;
     private String address;
     private int phone;
+    private Roles roles;
 
     public User() {
 
@@ -31,9 +36,10 @@ public class User {
         this.lastname=userDTO.getLastname();
         this.address=userDTO.getAddress();
         this.phone=userDTO.getPhone();
+        this.roles=userDTO.getRoles();
     }
 
-    public User(int id, String username, String password, String email, String firstname, String lastname, String address, int phone) {
+    public User(int id, String username, String password, String email, String firstname, String lastname, String address, int phone, Roles roles) {
         this.id=id;
         this.username = username;
         this.password = password;
@@ -42,6 +48,7 @@ public class User {
         this.lastname = lastname;
         this.address = address;
         this.phone = phone;
+        this.roles=roles;
     }
 
     public int getId() {
@@ -106,5 +113,13 @@ public class User {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 }

@@ -1,6 +1,7 @@
 package com.linuxCiper.librarymanagementsystem.dto;
 
 import com.linuxCiper.librarymanagementsystem.model.User;
+import com.linuxCiper.librarymanagementsystem.utils.Roles;
 
 public class UserDTO {
     private int id;
@@ -11,6 +12,7 @@ public class UserDTO {
     private String lastname;
     private String address;
     private int phone;
+    private Roles roles;
 
     public UserDTO() {
     }
@@ -24,6 +26,7 @@ public class UserDTO {
         this.lastname=user.getLastname();
         this.address=user.getAddress();
         this.phone=user.getPhone();
+        this.roles=user.getRoles();
     }
 
     public int getId() {
@@ -88,5 +91,13 @@ public class UserDTO {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 }

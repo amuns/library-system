@@ -64,11 +64,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        return null;
+        findById(userDTO.getId());
+        User user=new User(userDTO);
+        User updatedUser=userRepository.save(user);
+        UserDTO updatedUserDTO=new UserDTO(updatedUser);
+        return updatedUserDTO;
     }
 
     @Override
     public void deleteUser(int id) {
+        //findById(id);
+        userRepository.deleteById(id);
+    }
 
+    @Override
+    public UserDTO login(String username, String password){
+        Optional<User> optionalUser=userRepository.findByUsernameAndPassword(username, password);
+        User user=optionalUser.orElseThrow(()->new RuntimeException("Username or Password Incorrect"));
+        return new UserDTO(user);
     }
 }
