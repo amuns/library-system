@@ -1,11 +1,15 @@
 package com.linuxCiper.librarymanagementsystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.linuxCiper.librarymanagementsystem.model.User;
 import com.linuxCiper.librarymanagementsystem.utils.Roles;
+
+import java.time.LocalDate;
 
 public class UserDTO {
     private int id;
     private String username;
+    @JsonProperty(access =  JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String email;
     private String firstname;
@@ -13,20 +17,26 @@ public class UserDTO {
     private String address;
     private int phone;
     private Roles roles;
+    //for Admin signup
+    @JsonProperty(access =  JsonProperty.Access.WRITE_ONLY)
+    private String workingShift;
+    @JsonProperty(access =  JsonProperty.Access.WRITE_ONLY)
+    private String position;
+    @JsonProperty(access =  JsonProperty.Access.WRITE_ONLY)
+    private LocalDate joiningDate;
 
     public UserDTO() {
     }
 
-    public UserDTO(User user){
-        this.id=user.getId();
-        this.username=user.getUsername();
-        this.password=user.getPassword();
-        this.email=user.getEmail();
-        this.firstname=user.getFirstname();
-        this.lastname=user.getLastname();
-        this.address=user.getAddress();
-        this.phone=user.getPhone();
-        this.roles=user.getRoles();
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.address = user.getAddress();
+        this.phone = user.getPhone();
+        this.roles = user.getRoles();
     }
 
     public int getId() {
@@ -99,5 +109,29 @@ public class UserDTO {
 
     public void setRoles(Roles roles) {
         this.roles = roles;
+    }
+
+    public String getWorkingShift() {
+        return workingShift;
+    }
+
+    public void setWorkingShift(String workingShift) {
+        this.workingShift = workingShift;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public LocalDate getJoiningDate() {
+        return joiningDate;
+    }
+
+    public void setJoiningDate(LocalDate joiningDate) {
+        this.joiningDate = joiningDate;
     }
 }

@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public UserDTO addUser(@RequestBody UserDTO userDTO){
+    public UserDTO addUser(@RequestBody UserDTO userDTO) {
         return userService.addUser(userDTO);
     }
 
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public UserDTO login(@RequestParam String username, @RequestParam String password){
+    public UserDTO login(@RequestParam String username, @RequestParam String password) {
         return userService.login(username, password);
     }
 }

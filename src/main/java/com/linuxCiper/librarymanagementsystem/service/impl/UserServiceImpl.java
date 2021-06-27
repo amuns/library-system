@@ -1,9 +1,12 @@
 package com.linuxCiper.librarymanagementsystem.service.impl;
 
 import com.linuxCiper.librarymanagementsystem.dto.UserDTO;
+import com.linuxCiper.librarymanagementsystem.model.Admin;
 import com.linuxCiper.librarymanagementsystem.model.User;
 import com.linuxCiper.librarymanagementsystem.repository.UserRepository;
+import com.linuxCiper.librarymanagementsystem.service.AdminService;
 import com.linuxCiper.librarymanagementsystem.service.UserService;
+import com.linuxCiper.librarymanagementsystem.utils.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +29,23 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     @Autowired //Dependency Injection
     private UserRepository userRepository;
+    @Autowired
+    private AdminService adminService;
 
 
     @Override
     public UserDTO addUser(UserDTO userDTO) {
         User user=new User(userDTO); //copy UserDTO to user
         User savedUser = userRepository.save(user); //save user to database
+        if (userDTO.getRoles().equals(Roles.ADMIN)){
+            Admin admin = new Admin();
+            admin.setWorkingShift(userDTO.getWorkingShift());
+            admin.setPosition(userDTO.getPosition());
+            admin.setJoiningDate(userDTO.getJoiningDate());
+            admin.setUser(savedUser);
+            adminService.addAdmin(admin);
+
+        }
         UserDTO savedUserDTO = new UserDTO(savedUser); //copy user to UserDTO
         return savedUserDTO;
     }
